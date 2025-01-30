@@ -1,5 +1,6 @@
 import * as express from "express";
 
+import { Utils } from "./utils/Utils";
 
 export class Server {
   public app: express.Application = express();
@@ -12,8 +13,11 @@ export class Server {
   }
 
   setConfigs() {
+    this.dotenvConfigs();
+  }
 
-
+  dotenvConfigs() {
+    Utils.dotenvConfigs();
   }
 
   setRoutes() {
