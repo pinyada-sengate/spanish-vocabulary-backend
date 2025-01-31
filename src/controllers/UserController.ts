@@ -3,13 +3,13 @@ import { Utils } from "../utils/Utils";
 
 export class UserController {
   static async signup(req, res, next) {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
     try {
       const hash = await Utils.encryptPassword(password);
 
       let user = new User({
-        username,
+        email,
         password: hash,
       });
 
