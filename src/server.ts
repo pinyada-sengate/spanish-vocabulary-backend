@@ -1,6 +1,8 @@
 import * as express from "express";
+import * as mongoose from "mongoose";
 
 import { Utils } from "./utils/Utils";
+import { getEnviromentVariables } from "./environments/environment";
 
 export class Server {
   public app: express.Application = express();
@@ -14,10 +16,18 @@ export class Server {
 
   setConfigs() {
     this.dotenvConfigs();
+    this.connectMongoDB();
   }
 
   dotenvConfigs() {
     Utils.dotenvConfigs();
+  }
+
+  connectMongoDB() {
+
+    mongoose.connect(getEnviromentVariables().mongoURI).then(() => {
+      console.log("Connected to mongodb");
+    });
   }
 
   setRoutes() {
