@@ -5,6 +5,8 @@ import * as bodyParser from "body-parser";
 import { Utils } from "./utils/Utils";
 import { getEnviromentVariables } from "./environments/environment";
 
+import UserRouter from "./routers/UserRouter";
+
 export class Server {
   public app: express.Application = express();
 
@@ -39,7 +41,9 @@ export class Server {
     );
   }
 
-  setRoutes() {}
+  setRoutes() {
+    this.app.use("/api/user", UserRouter);
+  }
 
   error404Handler() {
     this.app.use((req, res) => {
