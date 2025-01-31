@@ -1,5 +1,6 @@
 import * as express from "express";
 import * as mongoose from "mongoose";
+import * as bodyParser from "body-parser";
 
 import { Utils } from "./utils/Utils";
 import { getEnviromentVariables } from "./environments/environment";
@@ -17,6 +18,7 @@ export class Server {
   setConfigs() {
     this.dotenvConfigs();
     this.connectMongoDB();
+    this.configureBodyParser();
   }
 
   dotenvConfigs() {
@@ -24,15 +26,20 @@ export class Server {
   }
 
   connectMongoDB() {
-
     mongoose.connect(getEnviromentVariables().mongoURI).then(() => {
       console.log("Connected to mongodb");
     });
   }
 
-  setRoutes() {
-
+  configureBodyParser() {
+    this.app.use(
+      bodyParser.urlencoded({
+        extended: true,
+      })
+    );
   }
+
+  setRoutes() {}
 
   error404Handler() {
     this.app.use((req, res) => {
