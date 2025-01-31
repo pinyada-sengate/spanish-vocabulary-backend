@@ -19,4 +19,18 @@ export class Utils {
       });
     });
   }
+
+  static comparePassword(data: { password: string; encryptPassword: string }) {
+    return new Promise((resolve, reject) => {
+      Bcrypt.compare(data.password, data.encryptPassword, (err, same) => {
+        if (err) {
+          reject(err);
+        } else if (!same) {
+          reject(new Error("User and password does not match"));
+        } else {
+          resolve(same);
+        }
+      });
+    });
+  }
 }

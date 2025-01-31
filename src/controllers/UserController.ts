@@ -23,5 +23,22 @@ export class UserController {
     }
   }
 
-  static async login(req, res, next) {}
+  static async login(req, res, next) {
+    const { password } = req.query;
+    const user = req.user;
+    const data = {
+      password,
+      encryptPassword: user.password,
+    };
+
+    try {
+      await Utils.comparePassword(data);
+
+      res.json({
+        user,
+      });
+    } catch (e) {
+      next(e);
+    }
+  }
 }

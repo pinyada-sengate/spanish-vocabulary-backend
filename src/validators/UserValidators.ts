@@ -1,4 +1,6 @@
-import { body } from "express-validator";
+import { body, query } from "express-validator";
+
+import User from "../models/User";
 
 export class UserValidators {
   static signup() {
@@ -12,6 +14,26 @@ export class UserValidators {
   }
 
   static login() {
-    return [];
+    return [
+      query("email", "Email is required")
+        .isEmail()
+        .custom(async (email, { req }) => {
+          try {
+            const user = await User.findOne({
+              email,
+            });
+
+            if (user) {
+              req.user = user;
+              return true;
+            } else {
+              throw new Error("User does not exists");
+            }
+          } catch (e) {
+            throw new Error(e);
+          }
+        }),
+      query("password", "Password is required").isAlphanumeric(),
+    ];
   }
 }
