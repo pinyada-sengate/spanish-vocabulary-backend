@@ -2,6 +2,7 @@ import { Router } from "express";
 import { GlobalMiddleware } from "../middlewares/GlobalMiddleware";
 import { CategoryController } from "../controllers/CategoryController";
 import { CategoryValidators } from "../validators/CategoryValidators";
+import { Utils } from "../utils/Utils";
 
 class CategoryRouter {
   public router: Router;
@@ -20,6 +21,7 @@ class CategoryRouter {
   postRoutes() {
     this.router.post(
       "/add",
+      new Utils().multer.single("image"),
       CategoryValidators.addCategory(),
       GlobalMiddleware.checkError,
       CategoryController.addCategory

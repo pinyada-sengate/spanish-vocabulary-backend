@@ -6,6 +6,7 @@ import { Utils } from "./utils/Utils";
 import { getEnviromentVariables } from "./environments/environment";
 
 import UserRouter from "./routers/UserRouter";
+import CategoryRouter from "./routers/CategoryRouter";
 
 export class Server {
   public app: express.Application = express();
@@ -42,8 +43,9 @@ export class Server {
   }
 
   setRoutes() {
-    this.app.use("/src/uploads", express.static("src/uploads"));
+    this.app.use("/src/uploads/images", express.static("src/uploads/images"));
     this.app.use("/api/user", UserRouter);
+    this.app.use("/api/category", CategoryRouter);
   }
 
   error404Handler() {

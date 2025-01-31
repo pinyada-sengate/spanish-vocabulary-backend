@@ -4,7 +4,7 @@ export class CategoryValidators {
   static addCategory() {
     return [
       body("title", "Name is requied").isString(),
-      body("image", "Image is required").custom((image, { req }) => {
+      body("categoryImages", "Image is required").custom((image, { req }) => {
         if (req.file) {
           return true;
         } else {
