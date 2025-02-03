@@ -16,7 +16,9 @@ class CategoryRouter {
     this.deleteRoutes();
   }
 
-  getRoutes() {}
+  getRoutes() {
+    this.router.get("/getCategories", CategoryController.getCategories);
+  }
 
   postRoutes() {
     this.router.post(

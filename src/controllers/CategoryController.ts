@@ -16,4 +16,13 @@ export class CategoryController {
       next(e);
     }
   }
+
+  static async getCategories(req, res, next) {
+    try {
+      const categories = await Category.find();
+      res.send(categories);
+    } catch (e) {
+      next(e);
+    }
+  }
 }
