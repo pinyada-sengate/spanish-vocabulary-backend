@@ -2,6 +2,7 @@ import { Router } from "express";
 import { UserController } from "../controllers/UserController";
 import { UserValidators } from "../validators/UserValidators";
 import { GlobalMiddleware } from "../middlewares/GlobalMiddleware";
+import { Utils } from "../utils/Utils";
 
 class UserRouter {
   public router: Router;
@@ -27,6 +28,7 @@ class UserRouter {
   postRoutes() {
     this.router.post(
       "/signup",
+      new Utils().multer.single("image"),
       UserValidators.signup(),
       GlobalMiddleware.checkError,
       UserController.signup

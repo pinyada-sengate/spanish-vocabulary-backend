@@ -4,18 +4,17 @@ import { Jwt } from "../utils/Jwt";
 
 export class UserController {
   static async signup(req, res, next) {
-    const { email, password, name } = req.body;
-
-    const path = req.file.path;
-
     try {
+      const { email, password, name } = req.body;
+
+      const file = req.file;
       const hashPassword = await Utils.encryptPassword(password);
 
       let user = new User({
         name,
         email,
         password: hashPassword,
-        image_url: path,
+        image_url: file ? file.path : undefined,
       });
 
       user = await user.save();
