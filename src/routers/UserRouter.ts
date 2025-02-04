@@ -16,14 +16,7 @@ class UserRouter {
     this.deleteRoutes();
   }
 
-  getRoutes() {
-    this.router.get(
-      "/login",
-      UserValidators.login(),
-      GlobalMiddleware.checkError,
-      UserController.login
-    );
-  }
+  getRoutes() {}
 
   postRoutes() {
     this.router.post(
@@ -32,6 +25,13 @@ class UserRouter {
       UserValidators.signup(),
       GlobalMiddleware.checkError,
       UserController.signup
+    );
+
+    this.router.post(
+      "/login",
+      UserValidators.login(),
+      GlobalMiddleware.checkError,
+      UserController.login
     );
   }
 

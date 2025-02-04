@@ -14,19 +14,19 @@ export class UserController {
         name,
         email,
         password: hashPassword,
-        image_url: file ? file.path : undefined,
+        image: file ? file.path : undefined,
       });
 
       user = await user.save();
 
       const payload = {
-        user_id: user.id,
+        userId: user.id,
         email: user.email,
       };
       const token = Jwt.jwtSign(payload);
 
       res.json({
-        user_id: user.id,
+        userId: user.id,
         email: user.email,
         token,
       });
@@ -36,7 +36,7 @@ export class UserController {
   }
 
   static async login(req, res, next) {
-    const { password } = req.query;
+    const { password } = req.body;
     const user = req.user;
     const data = {
       password,
@@ -46,8 +46,17 @@ export class UserController {
     try {
       await Utils.comparePassword(data);
 
+      const payload = {
+        userId: user.id,
+        email: user.email,
+      };
+
+      const token = Jwt.jwtSign(payload);
+
       res.json({
-        user,
+        user_id: user.id,
+        email: user.email,
+        token,
       });
     } catch (e) {
       next(e);

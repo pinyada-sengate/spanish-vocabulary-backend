@@ -37,11 +37,15 @@ export class Server {
   }
 
   configureBodyParser() {
+    // parse application/x-www-form-urlencoded
     this.app.use(
       bodyParser.urlencoded({
         extended: true,
       })
     );
+
+    // parse application/json
+    this.app.use(bodyParser.json());
   }
 
   allowCors() {
