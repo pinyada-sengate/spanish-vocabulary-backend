@@ -20,7 +20,9 @@ export class CategoryController {
   static async getCategories(req, res, next) {
     try {
       const categories = await Category.find();
-      res.send(categories);
+      res.json({
+        categories,
+      });
     } catch (e) {
       next(e);
     }
