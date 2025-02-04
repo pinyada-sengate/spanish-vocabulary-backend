@@ -26,6 +26,14 @@ export class UserValidators {
         .isAlphanumeric()
         .isLength({ min: 8, max: 20 })
         .withMessage("Password must be between 8 - 20 characters"),
+      body("name", "Name is requied").isString(),
+      body("image", "Image is required").custom((image, { req }) => {
+        if (req.file) {
+          return true;
+        } else {
+          throw new Error("User's image is required");
+        }
+      }),
     ];
   }
 

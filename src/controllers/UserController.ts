@@ -1,22 +1,35 @@
 import User from "../models/User";
 import { Utils } from "../utils/Utils";
+import { Jwt } from "../utils/Jwt";
 
 export class UserController {
   static async signup(req, res, next) {
-    const { email, password } = req.body;
+    const { email, password, name } = req.body;
+
+    const path = req.file.path;
 
     try {
-      const hash = await Utils.encryptPassword(password);
+      const hashPassword = await Utils.encryptPassword(password);
 
       let user = new User({
+        name,
         email,
-        password: hash,
+        password: hashPassword,
+        image_url: path,
       });
 
       user = await user.save();
 
+      const payload = {
+        user_id: user.id,
+        email: user.email,
+      };
+      const token = Jwt.jwtSign(payload);
+
       res.json({
-        user,
+        user_id: user.id,
+        email: user.email,
+        token,
       });
     } catch (e) {
       next(e);
