@@ -7,7 +7,7 @@ export class CategoryController {
       const path = req.file.path;
       const data: any = {
         title,
-        image_url: path,
+        image: path,
       };
 
       const category = await new Category(data).save();
