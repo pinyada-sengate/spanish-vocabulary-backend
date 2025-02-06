@@ -8,6 +8,7 @@ import { getEnviromentVariables } from "./environments/environment";
 
 import UserRouter from "./routers/UserRouter";
 import CategoryRouter from "./routers/CategoryRouter";
+import VocabularyRouter from "./routers/VocabularyRouter";
 
 export class Server {
   public app: express.Application = express();
@@ -56,6 +57,7 @@ export class Server {
     this.app.use("/src/uploads/images", express.static("src/uploads/images"));
     this.app.use("/api/user", UserRouter);
     this.app.use("/api/category", CategoryRouter);
+    this.app.use("/api/vocabulary", VocabularyRouter);
   }
 
   error404Handler() {
