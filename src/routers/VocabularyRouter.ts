@@ -37,7 +37,9 @@ class VocabularyRouter {
 
   putRoutes() {}
 
-  deleteRoutes() {}
+  deleteRoutes() {
+    this.router.delete("/delete/:id", VocabularyController.deleteVocabulary);
+  }
 }
 
 export default new VocabularyRouter().router;

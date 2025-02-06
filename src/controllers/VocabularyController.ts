@@ -34,4 +34,19 @@ export class VocabularyController {
       next(e);
     }
   }
+
+  static async deleteVocabulary(req, res, next) {
+    const { id } = req.params;
+
+    try {
+      await Vocabulary.findOneAndDelete({
+        _id: id,
+      });
+      res.json({
+        success: true,
+      });
+    } catch (e) {
+      next(e);
+    }
+  }
 }
