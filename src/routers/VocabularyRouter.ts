@@ -16,7 +16,12 @@ class VocabularyRouter {
     this.deleteRoutes();
   }
 
-  getRoutes() {}
+  getRoutes() {
+    this.router.get(
+      "/:categoryId",
+      VocabularyController.getVocabulariesByCategoryId
+    );
+  }
 
   postRoutes() {
     this.router.post(

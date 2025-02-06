@@ -18,4 +18,20 @@ export class VocabularyController {
       next(e);
     }
   }
+
+  static async getVocabulariesByCategoryId(req, res, next) {
+    const { categoryId } = req.params;
+
+    try {
+      const vocabularies = await Vocabulary.find({
+        categoryIds: categoryId,
+      });
+
+      res.json({
+        vocabularies,
+      });
+    } catch (e) {
+      next(e);
+    }
+  }
 }
