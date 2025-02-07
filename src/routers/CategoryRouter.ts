@@ -30,10 +30,8 @@ class CategoryRouter {
     );
   }
 
-  patchRoutes() {}
-
-  putRoutes() {
-    this.router.put(
+  patchRoutes() {
+    this.router.patch(
       "/edit/:id",
       new Utils().multer.single("image"),
       CategoryValidators.editCategory(),
@@ -41,6 +39,8 @@ class CategoryRouter {
       CategoryController.editCategory
     );
   }
+
+  putRoutes() {}
 
   deleteRoutes() {}
 }
