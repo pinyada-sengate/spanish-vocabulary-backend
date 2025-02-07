@@ -29,16 +29,18 @@ export class CategoryController {
   }
 
   static async editCategory(req, res, next) {
-    const { title, image } = req.body;
-    const id = req.params.id;
+    const { title } = req.body;
+    const { id } = req.params;
+    const path = req.file.path;
+
     try {
-      const category = await Category.findOne(
+      const category = await Category.findOneAndUpdate(
         {
           _id: id,
         },
         {
           title,
-          image,
+          image: path,
           updated_at: new Date(),
         },
         {

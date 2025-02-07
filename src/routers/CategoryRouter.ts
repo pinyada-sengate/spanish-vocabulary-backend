@@ -33,8 +33,9 @@ class CategoryRouter {
   patchRoutes() {}
 
   putRoutes() {
-    this.router.patch(
+    this.router.put(
       "/edit/:id",
+      new Utils().multer.single("image"),
       CategoryValidators.editCategory(),
       GlobalMiddleware.checkError,
       CategoryController.editCategory
