@@ -31,4 +31,11 @@ export class VocabularyValidators {
       }),
     ];
   }
+
+  static editVocabulary() {
+    return [
+      body("es", "Spanish vocabulary is requied").isString(),
+      body("en", "English vocabulary is requied").isString(),
+    ];
+  }
 }

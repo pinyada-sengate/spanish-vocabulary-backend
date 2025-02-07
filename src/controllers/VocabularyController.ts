@@ -66,4 +66,37 @@ export class VocabularyController {
       next(e);
     }
   }
+
+  static async editVocabulary(req, res, next) {
+    try {
+      const { es, en } = req.body;
+      const { id } = req.params;
+      const file = req.file;
+
+      const vocabulary = await Vocabulary.findOneAndUpdate(
+        {
+          _id: id,
+        },
+        {
+          es,
+          en,
+          image: file ? file.path : undefined,
+          updated_at: new Date(),
+        },
+        {
+          new: true,
+        }
+      );
+
+      if (vocabulary) {
+        res.json({
+          vocabulary,
+        });
+      } else {
+        throw new Error("Vocabulary does not exist");
+      }
+    } catch (e) {
+      next(e);
+    }
+  }
 }

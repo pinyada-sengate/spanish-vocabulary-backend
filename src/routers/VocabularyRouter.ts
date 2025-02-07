@@ -37,7 +37,15 @@ class VocabularyRouter {
     );
   }
 
-  patchRoutes() {}
+  patchRoutes() {
+    this.router.patch(
+      "/edit/:id",
+      new Utils().multer.single("image"),
+      VocabularyValidators.editVocabulary(),
+      GlobalMiddleware.checkError,
+      VocabularyController.editVocabulary
+    );
+  }
 
   putRoutes() {}
 
