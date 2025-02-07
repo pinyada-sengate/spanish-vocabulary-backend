@@ -18,6 +18,7 @@ class CategoryRouter {
 
   getRoutes() {
     this.router.get("/getCategories", CategoryController.getCategories);
+    this.router.get("/:id", CategoryController.getCategoryById);
   }
 
   postRoutes() {

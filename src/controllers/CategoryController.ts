@@ -59,4 +59,22 @@ export class CategoryController {
       next(e);
     }
   }
+
+  static async getCategoryById(req, res, next) {
+    const { id } = req.params;
+
+    try {
+      const category = await Category.findById(id);
+
+      if (category) {
+        res.json({
+          category,
+        });
+      } else {
+        throw new Error("Category does not exist");
+      }
+    } catch (e) {
+      next(e);
+    }
+  }
 }
