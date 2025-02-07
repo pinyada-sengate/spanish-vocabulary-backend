@@ -32,7 +32,14 @@ class CategoryRouter {
 
   patchRoutes() {}
 
-  putRoutes() {}
+  putRoutes() {
+    this.router.patch(
+      "/edit/:id",
+      CategoryValidators.editCategory(),
+      GlobalMiddleware.checkError,
+      CategoryController.editCategory
+    );
+  }
 
   deleteRoutes() {}
 }
