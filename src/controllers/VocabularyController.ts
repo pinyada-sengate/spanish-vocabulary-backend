@@ -49,4 +49,21 @@ export class VocabularyController {
       next(e);
     }
   }
+
+  static async getVocabularyById(req, res, next) {
+    try {
+      const { id } = req.params;
+      const vocabulary = await Vocabulary.findById(id);
+
+      if (vocabulary) {
+        res.json({
+          vocabulary,
+        });
+      } else {
+        throw new Error("Vocabulary does not exist");
+      }
+    } catch (e) {
+      next(e);
+    }
+  }
 }

@@ -21,6 +21,10 @@ class VocabularyRouter {
       "/:categoryId",
       VocabularyController.getVocabulariesByCategoryId
     );
+    this.router.get(
+      "/getVocabularyById/:id",
+      VocabularyController.getVocabularyById
+    );
   }
 
   postRoutes() {
