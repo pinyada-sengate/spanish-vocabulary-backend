@@ -15,15 +15,6 @@ export class CategoryValidators {
   }
 
   static editCategory() {
-    return [
-      body("title", "Title is requied").isString(),
-      body("image", "Image is required").custom((image, { req }) => {
-        if (req.file) {
-          return true;
-        } else {
-          throw new Error("Category's image is required");
-        }
-      }),
-    ];
+    return [body("title", "Title is requied").isString()];
   }
 }
