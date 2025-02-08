@@ -30,6 +30,7 @@ class VocabularyRouter {
   postRoutes() {
     this.router.post(
       "/add",
+      GlobalMiddleware.auth,
       new Utils().multer.single("image"),
       VocabularyValidators.addVocabulary(),
       GlobalMiddleware.checkError,
@@ -40,6 +41,7 @@ class VocabularyRouter {
   patchRoutes() {
     this.router.patch(
       "/edit/:id",
+      GlobalMiddleware.auth,
       new Utils().multer.single("image"),
       VocabularyValidators.editVocabulary(),
       GlobalMiddleware.checkError,
@@ -50,7 +52,11 @@ class VocabularyRouter {
   putRoutes() {}
 
   deleteRoutes() {
-    this.router.delete("/delete/:id", VocabularyController.deleteVocabulary);
+    this.router.delete(
+      "/delete/:id",
+      GlobalMiddleware.auth,
+      VocabularyController.deleteVocabulary
+    );
   }
 }
 
