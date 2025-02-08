@@ -24,6 +24,7 @@ class CategoryRouter {
   postRoutes() {
     this.router.post(
       "/add",
+      GlobalMiddleware.auth,
       new Utils().multer.single("image"),
       CategoryValidators.addCategory(),
       GlobalMiddleware.checkError,
@@ -34,6 +35,7 @@ class CategoryRouter {
   patchRoutes() {
     this.router.patch(
       "/edit/:id",
+      GlobalMiddleware.auth,
       new Utils().multer.single("image"),
       CategoryValidators.editCategory(),
       GlobalMiddleware.checkError,
