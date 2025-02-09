@@ -1,4 +1,5 @@
 import Category from "../models/Category";
+import Vocabulary from "../models/Vocabulary";
 
 export class CategoryController {
   static async addCategory(req, res, next) {
@@ -73,6 +74,24 @@ export class CategoryController {
       } else {
         throw new Error("Category does not exist");
       }
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  static async deleteCategory(req, res, next) {
+    try {
+      const { id } = req.params;
+
+      await Category.findOneAndDelete({
+        _id: id,
+      });
+
+      await Vocabulary.deleteMany({ category_id: id });
+
+      res.json({
+        success: true,
+      });
     } catch (e) {
       next(e);
     }

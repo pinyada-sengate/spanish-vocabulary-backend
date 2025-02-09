@@ -45,7 +45,13 @@ class CategoryRouter {
 
   putRoutes() {}
 
-  deleteRoutes() {}
+  deleteRoutes() {
+    this.router.delete(
+      "/delete/:id",
+      GlobalMiddleware.auth,
+      CategoryController.deleteCategory
+    );
+  }
 }
 
 export default new CategoryRouter().router;
