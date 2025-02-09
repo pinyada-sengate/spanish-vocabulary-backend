@@ -6,14 +6,15 @@ export class VocabularyValidators {
     return [
       body("es", "Spanish vocabulary is requied").isString(),
       body("en", "English vocabulary is requied").isString(),
-      body("categoryIds", "Category ids is requied")
-        .isArray()
-        .custom(async (categoryIds, { req }) => {
+      body("categoryId", "Category id is requied")
+        .isString()
+        .custom(async (categoryId, { req }) => {
           try {
-            const categories = await Category.find({
-              _id: { $in: categoryIds },
+            const category = await Category.find({
+              _id: categoryId,
             });
-            if (categories.length === categoryIds.length) {
+
+            if (category) {
               return true;
             } else {
               throw new Error("Category id is not exists");

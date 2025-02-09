@@ -3,17 +3,19 @@ import Vocabulary from "../models/Vocabulary";
 export class VocabularyController {
   static async addVocabulary(req, res, next) {
     try {
-      const { es, en, categoryIds } = req.body;
+      const { es, en, categoryId } = req.body;
       const path = req.file.path;
       const data: any = {
-        categoryIds,
+        category_id: categoryId,
         es,
         en,
         image: path,
       };
 
       const vocabulary = await new Vocabulary(data).save();
-      res.send(vocabulary);
+      res.json({
+        vocabulary,
+      });
     } catch (e) {
       next(e);
     }
@@ -24,7 +26,7 @@ export class VocabularyController {
 
     try {
       const vocabularies = await Vocabulary.find({
-        categoryIds: categoryId,
+        category_id: categoryId,
       });
 
       res.json({

@@ -2,9 +2,7 @@ import * as mongoose from "mongoose";
 import { model, Schema } from "mongoose";
 
 const vocabularySchema = new mongoose.Schema({
-  categoryIds: [
-    { type: Schema.Types.ObjectId, required: true, ref: "Category" },
-  ],
+  category_id: { type: Schema.Types.ObjectId, required: true, ref: "Category" },
   image: { type: String, require: true },
   es: { type: String, required: true },
   en: { type: String, required: true },
